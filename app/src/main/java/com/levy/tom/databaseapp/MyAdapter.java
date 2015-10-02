@@ -50,7 +50,7 @@ public class MyAdapter extends ArrayAdapter<Message> {
 
         Message message = data.get(position);
         holder.txtTitle.setText(message.getContent());
-        holder.imgIcon.setImageResource(android.R.drawable.ic_dialog_email);
+        holder.imgIcon.setImageResource(android.R.drawable.ic_menu_edit);
 
         return row;
     }
