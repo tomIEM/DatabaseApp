@@ -55,9 +55,14 @@ public class MyAdapter extends ArrayAdapter<Message> {
         return row;
     }
 
+    public Message getItem(Integer position) {
+        return data.get(position);
+    }
+
     static class MessageHolder
     {
         ImageView imgIcon;
         TextView txtTitle;
     }
+
 }
