@@ -22,5 +22,11 @@
         android:inputType="textMultiLine"
         android:ems="10"
         android:id="@+id/content" />
-
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:textAlignment="viewEnd"
+        android:textStyle="italic"
+        android:id="@+id/date" />
 </LinearLayout>

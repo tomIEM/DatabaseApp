@@ -11,10 +11,13 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.security.Timestamp;
+
 public class DetailActivity extends AppCompatActivity {
 
     Long id = null;
     TextView label_content;
+    TextView date;
     EditText content;
     MessageDAO db= new MessageDAO(this);
 
@@ -26,6 +29,7 @@ public class DetailActivity extends AppCompatActivity {
 
         label_content = (TextView) findViewById(R.id.label_content);
         content = (EditText) findViewById(R.id.content);
+        date = (TextView) findViewById(R.id.date);
 
         Intent intent=this.getIntent();
         id = intent.getLongExtra("key", 0);
@@ -41,7 +45,7 @@ public class DetailActivity extends AppCompatActivity {
             m = db.get(id);
             db.close();
             content.setText(m.getContent());
-
+            date.setText("Message envoyé "+m.getDate());
         }else{
         //Insert
             toolbar.setTitle("Nouveau message");
@@ -65,7 +69,10 @@ public class DetailActivity extends AppCompatActivity {
                     finish();
 
                 }else{
-                    Message m = new Message(0,String.valueOf(content.getText()),12);
+                    java.util.Date date= new java.util.Date();
+                    long date_creation = date.getTime();
+
+                    Message m = new Message(0,String.valueOf(content.getText()),date_creation);
                     db.open();
                     db.ajouter(m);
                     db.close();

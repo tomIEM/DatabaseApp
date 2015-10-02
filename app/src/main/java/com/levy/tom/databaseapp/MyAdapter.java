@@ -38,8 +38,9 @@ public class MyAdapter extends ArrayAdapter<Message> {
             row = inflater.inflate(layoutResourceId, parent, false);
 
             holder = new MessageHolder();
-            holder.imgIcon = (ImageView)row.findViewById(R.id.imgIcon);
+           // holder.imgIcon = (ImageView)row.findViewById(R.id.imgIcon);
             holder.txtTitle = (TextView)row.findViewById(R.id.txtTitle);
+            holder.txtDate = (TextView)row.findViewById(R.id.txtDate);
 
             row.setTag(holder);
         }
@@ -50,7 +51,8 @@ public class MyAdapter extends ArrayAdapter<Message> {
 
         Message message = data.get(position);
         holder.txtTitle.setText(message.getContent());
-        holder.imgIcon.setImageResource(android.R.drawable.ic_menu_edit);
+        holder.txtDate.setText(String.valueOf(message.getDate()));
+        //holder.imgIcon.setImageResource(android.R.drawable.ic_delete);
 
         return row;
     }
@@ -61,8 +63,9 @@ public class MyAdapter extends ArrayAdapter<Message> {
 
     static class MessageHolder
     {
-        ImageView imgIcon;
+        //ImageView imgIcon;
         TextView txtTitle;
+        TextView txtDate;
     }
 
 }
