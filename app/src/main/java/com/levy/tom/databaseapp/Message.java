@@ -37,6 +37,10 @@ public class Message {
         this.content = content;
     }
 
+    public Long getTimestamp() {
+        return date_creation;
+    }
+
     public String getDate() {
 
         SimpleDateFormat df = new SimpleDateFormat("EEEE d MMMM yyyy",Locale.FRANCE);

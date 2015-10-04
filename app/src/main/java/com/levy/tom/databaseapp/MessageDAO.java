@@ -29,7 +29,7 @@ public class MessageDAO extends DAOBase{
     public void ajouter(Message m) {
         ContentValues value = new ContentValues();
         value.put(MessageDAO.CONTENT, m.getContent());
-        value.put(MessageDAO.DATE, String.valueOf(m.getDate()));
+        value.put(MessageDAO.DATE, String.valueOf(m.getTimestamp()));
         mDb.insert(MessageDAO.TABLE_NAME, null, value);
 
     }
@@ -64,7 +64,7 @@ public class MessageDAO extends DAOBase{
 
         ArrayList<Message> result = new ArrayList<Message>();
         Message m = null;
-        Cursor query = mDb.rawQuery("select id as _id, content, date_creation from " + TABLE_NAME , new String[]{});
+        Cursor query = mDb.rawQuery("select id as _id, content, date_creation from " + TABLE_NAME+" ORDER BY date_creation DESC" , new String[]{});
         while (query.moveToNext()) {
             Log.d("TEST", String.valueOf(query.getString(0)));
             Log.d("TEST", String.valueOf(query.getString(1)));

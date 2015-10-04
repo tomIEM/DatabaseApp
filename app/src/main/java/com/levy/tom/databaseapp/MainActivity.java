@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Message item = adapter.getItem(position);
+                Message item = adapter.getItem(position-1);
                 Log.d("MainActivity", String.valueOf(item.getId()));
                 Intent intent = new Intent(MainActivity.this, DetailActivity.class);
                 intent.putExtra("key", item.getId());

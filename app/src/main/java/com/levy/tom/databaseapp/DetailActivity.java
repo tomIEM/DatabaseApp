@@ -27,6 +27,7 @@ public class DetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detail);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
+
         label_content = (TextView) findViewById(R.id.label_content);
         content = (EditText) findViewById(R.id.content);
         date = (TextView) findViewById(R.id.date);
@@ -34,7 +35,7 @@ public class DetailActivity extends AppCompatActivity {
         Intent intent=this.getIntent();
         id = intent.getLongExtra("key", 0);
 
-        Log.d("DetailActivity", String.valueOf(id));
+        //Log.d("DetailActivity", String.valueOf(id));
 
         if(id>0){
         //Update
@@ -45,14 +46,32 @@ public class DetailActivity extends AppCompatActivity {
             m = db.get(id);
             db.close();
             content.setText(m.getContent());
-            date.setText("Message envoyé "+m.getDate());
+            date.setText("Message envoyé " + m.getDate());
+
+            toolbar.setNavigationIcon(android.R.drawable.ic_menu_delete);
+            toolbar.setNavigationContentDescription("Supprimer");
+
+
+
         }else{
         //Insert
             toolbar.setTitle("Nouveau message");
         }
 
-        setSupportActionBar(toolbar);
 
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("DetailActivity", String.valueOf(id));
+                db.open();
+                db.supprimer(id);
+                db.close();
+                finish();
+            }
+
+        });
+        
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
 
