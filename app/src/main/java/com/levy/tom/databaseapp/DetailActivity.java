@@ -1,5 +1,7 @@
 package com.levy.tom.databaseapp;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -63,15 +65,29 @@ public class DetailActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("DetailActivity", String.valueOf(id));
-                db.open();
-                db.supprimer(id);
-                db.close();
-                finish();
+                new AlertDialog.Builder(DetailActivity.this)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setTitle("Supprimer le message")
+                        .setMessage("Etes vous sur de vouloir supprimer ce message ?")
+                        .setPositiveButton("Oui", new DialogInterface.OnClickListener()
+                        {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Log.d("DetailActivity", String.valueOf(id));
+                                db.open();
+                                db.supprimer(id);
+                                db.close();
+                                finish();
+                            }
+
+                        })
+                        .setNegativeButton("Npn", null)
+                        .show();
+
             }
 
         });
-        
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
 
