@@ -12,6 +12,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -20,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
     ListView listView;
     ArrayList<Message> liste = null;
     MessageDAO db= new MessageDAO(this);
-
+    TextView txtHeader;
 
     @Override
     protected void onStart() {
@@ -31,8 +33,13 @@ public class MainActivity extends AppCompatActivity {
         liste = db.getAll();
         db.close();
 
+        txtHeader = (TextView) findViewById(R.id.txtHeader);
+        txtHeader.setText("Vos "+liste.size()+" messages");
+
+
         final MyAdapter adapter = new MyAdapter(this,
                 R.layout.listview_item_row, liste);
+
 
 
         listView.setAdapter(adapter);
@@ -45,9 +52,11 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("MainActivity", String.valueOf(item.getId()));
                 Intent intent = new Intent(MainActivity.this, DetailActivity.class);
                 intent.putExtra("key", item.getId());
-                startActivity(intent);
+                startActivityForResult(intent, 2);
 
             }
+
+
         });
     }
 
@@ -70,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
         View header = (View)getLayoutInflater().inflate(R.layout.listview_header_row, null);
         listView.addHeaderView(header);
 
+
         /*listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -90,13 +100,37 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this,DetailActivity.class);
-                startActivity(intent);
+                Intent intent = new Intent(MainActivity.this, DetailActivity.class);
+                startActivityForResult(intent, 1);
 
                /* Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();*/
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == 1) {
+
+            if (resultCode == 1) {
+                Toast.makeText(getApplicationContext(), "Votre message a bien été ajouté.",
+                        Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        if (requestCode == 2) {
+
+            if (resultCode == 1) {
+                Toast.makeText(getApplicationContext(), "Votre message a bien été mis a jour.",
+                        Toast.LENGTH_SHORT).show();
+            }
+            if (resultCode == 2) {
+                Toast.makeText(getApplicationContext(), "Votre message a bien été supprimé.",
+                        Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
     @Override

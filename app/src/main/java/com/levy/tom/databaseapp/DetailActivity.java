@@ -77,11 +77,13 @@ public class DetailActivity extends AppCompatActivity {
                                 db.open();
                                 db.supprimer(id);
                                 db.close();
+                                Intent intent=new Intent();
+                                setResult(2, intent);
                                 finish();
                             }
 
                         })
-                        .setNegativeButton("Npn", null)
+                        .setNegativeButton("Non", null)
                         .show();
 
             }
@@ -101,6 +103,8 @@ public class DetailActivity extends AppCompatActivity {
                     m.setContent(String.valueOf(content.getText()));
                     db.modifier(m);
                     db.close();
+                    Intent intent=new Intent();
+                    setResult(1, intent);
                     finish();
 
                 }else{
@@ -111,6 +115,8 @@ public class DetailActivity extends AppCompatActivity {
                     db.open();
                     db.ajouter(m);
                     db.close();
+                    Intent intent=new Intent();
+                    setResult(1,intent);
                     finish();
                 }
             }
